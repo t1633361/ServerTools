@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>内部集成工具 - guofw</title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black"> 
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+
+  <link rel="stylesheet" href="../layui/css/layui.css" media="all">
+</head>
+<body class="layui-layout-body">
+<div class="layui-layout layui-layout-admin">
+  <div class="layui-header">
+    <div class="layui-logo">内部集成工具</div>
+    <!-- 头部区域（可配合layui已有的水平导航） -->
+    <ul class="layui-nav layui-layout-left">
+      <li class="layui-nav-item"><a href="">预留</a></li>
+      <li class="layui-nav-item"><a href="">预留</a></li>
+      <li class="layui-nav-item"><a href="">预留</a></li>
+      <li class="layui-nav-item">
+        <a href="javascript:;">预留</a>
+        <dl class="layui-nav-child">
+          <dd><a href="">预留</a></dd>
+          <dd><a href="">预留</a></dd>
+          <dd><a href="">预留</a></dd>
+        </dl>
+      </li>
+    </ul>    
+    <!-- <ul class="layui-nav layui-layout-right">
+      <li class="layui-nav-item">
+        <a href="javascript:;">
+          <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
+          贤心
+        </a>
+        <dl class="layui-nav-child">
+          <dd><a href="">基本资料</a></dd>
+          <dd><a href="">安全设置</a></dd>
+        </dl>
+      </li>
+      <li class="layui-nav-item"><a href="">退了</a></li>
+    </ul>    -->
+  </div>
+  
+  <div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+      <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+      <ul class="layui-nav layui-nav-tree"  lay-filter="test">
+        <li class="layui-nav-item layui-nav-itemed">
+          <a class="" href="javascript:;">所有服务器</a>
+          <dl class="layui-nav-child ">
+            <dd><a href="javascript:;" id="project1" class="layui-this">项目1</a></dd>
+            <dd><a href="javascript:;" id="project2">项目2</a></dd>
+            <dd><a href="javascript:;" id="project3">项目3</a></dd>
+            <!-- <dd><a href="">超链接</a></dd> -->
+          </dl>
+        </li>
+        <li class="layui-nav-item">
+          <a href="javascript:;">预留</a>
+          <dl class="layui-nav-child">
+            <dd><a href="javascript:;">预留一</a></dd>
+            <dd><a href="javascript:;">预留二</a></dd>
+            <dd><a href="">预留三</a></dd>
+          </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">预留</a></li>
+        <li class="layui-nav-item"><a href="">预留</a></li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="layui-body">
+    <!-- 内容主体区域 -->
+    <div style="padding: 15px;">
+    <button class="layui-btn layui-btn-normal" lay-submit="" id="GameServer">编译游戏服务器代码</button>
+    <button class="layui-btn layui-btn-normal" lay-submit="" id="LoginServer">编译登录服务器代码</button>
+    <button class="layui-btn layui-btn-normal" lay-submit="" id="WorldServer">编译世界服务器代码</button>
+    <button class="layui-btn layui-btn-normal" lay-submit="" id="MapServer">编译地图服务器代码</button>
+    <button class="layui-btn layui-btn-normal" lay-submit="" id="ChatServer">编译聊天服务器代码</button>
+    <!-- <a href="http://www.layui.com" class="layui-btn">一个可跳转的按钮</a> -->
+    </div>
+  </div>
+  
+  <div class="layui-footer">
+    <!-- 底部固定区域 -->
+    ©guofw 底部固定区域
+  </div>
+</div>
+<script src="layui/layui.js"></script>
+<script>
+//JavaScript代码区域
+layui.use(['element', 'layer'], function(){
+    var element = layui.element,
+        layer = layui.layer,
+        $= layui.jquery;
+    var serverType = 'project1'
+    //监听提交
+    ///////// 发送编译请求 /////////
+    //游戏服务器
+    $('#GameServer').on('click', function() {
+        $.post("/buildserver",{servername:'GameServer',servertype:serverType},function(result){
+            if(result.status == "success"){
+                layer.msg('开始编译');
+            }
+            else{
+                layer.msg("错误信息:"+result.status);
+            }
+        });
+        //这句话的意思不会刷新当前页面。避免清空内容
+        return false;
+    });
+    //登录服务器
+    $('#LoginServer').on('click', function() {
+        $.post("/buildserver",{servername:'LoginServer',servertype:serverType},function(result){
+            if(result.status == "success"){
+                layer.msg('开始编译');
+            }
+            else{
+                layer.msg("错误信息:"+result.status);
+            }
+    });
+    //这句话的意思不会刷新当前页面。避免清空内容
+    return false;
+    });
+    //世界服务器
+    $('#WorldServer').on('click', function() {
+        $.post("/buildserver",{servername:'WorldServer',servertype:serverType},function(result){
+            if(result.status == "success"){
+                layer.msg('开始编译');
+            }
+            else{
+                layer.msg("错误信息:"+result.status);
+            }
+    });
+    //这句话的意思不会刷新当前页面。避免清空内容
+    return false;
+    });
+    //地图服务器
+    $('#MapServer').on('click', function() {
+        $.post("/buildserver",{servername:'MapServer',servertype:serverType},function(result){
+            if(result.status == "success"){
+                layer.msg('开始编译');
+            }
+            else{
+                layer.msg("错误信息:"+result.status);
+            }
+        });
+        //这句话的意思不会刷新当前页面。避免清空内容
+        return false;
+    });
+    //聊天服务器
+    $('#ChatServer').on('click', function() {
+        $.post("/buildserver",{servername:'ChatServer',servertype:serverType},function(result){
+            if(result.status == "success"){
+                layer.msg('开始编译');
+            }
+            else{
+                layer.msg("错误信息:"+result.status);
+            }
+        });
+        //这句话的意思不会刷新当前页面。避免清空内容
+        return false;
+    });
+
+    ///////// 设置项目 /////////
+    $('#project1').on('click',function(){
+        serverType='project1';
+    });
+    $('#project2').on('click',function(){
+        serverType='project2';
+    });
+    $('#project3').on('click',function(){
+        serverType='project3';
+    });
+  
+});
+</script>
+</body>
+</html>
